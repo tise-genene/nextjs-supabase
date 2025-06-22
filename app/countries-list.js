@@ -68,13 +68,23 @@ export default function CountriesList({ initialCountries }) {
     router.refresh()
   }
 
+  const handleBuy = async () => {
+    const res = await fetch('/api/create-checkout-session', { method: 'POST' })
+    const data = await res.json()
+    if (data.url) {
+      window.location = data.url
+    }
+  }
+
   return (
     <div style={{ padding: '20px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>Countries</h1>
         <button onClick={handleSignOut}>Sign Out</button>
       </div>
-      
+      <button onClick={handleBuy} style={{ margin: '20px 0', padding: '10px 20px', fontWeight: 'bold' }}>
+        Buy Test Product ($10)
+      </button>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
